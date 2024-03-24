@@ -356,6 +356,6 @@ interface Type {
 }
 
 interface Type2 {
-  name: string
-  url: PokemonType
+  name: PokemonType
+  url: string
 }

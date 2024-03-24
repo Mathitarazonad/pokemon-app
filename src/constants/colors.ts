@@ -5,7 +5,7 @@ export const Colors = {
   secondaryText: '#949597',
 }
 
-export const TypeColors = {
+export const TypeColors: Record<PokemonType, string> = {
   normal: '#a1a3a0',
   fire: '#ffad76',
   fighting: '#C22E28',
