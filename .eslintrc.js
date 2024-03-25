@@ -40,6 +40,8 @@ module.exports = {
     'multiline-ternary': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     'react/no-unescaped-entities': 'off',
-    '@typescript-eslint/no-unused-vars': 'warn'
+    '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/restrict-plus-operands': 'off'
   }
 }
