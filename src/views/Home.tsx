@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Image, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native'
+import { ActivityIndicator, FlatList, Image, KeyboardAvoidingView, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Colors } from '../constants/colors'
 import { PokemonLogo } from '../components/icons/PokemonLogo'
 import { AntDesign } from '@expo/vector-icons'
@@ -9,9 +9,21 @@ import { Pokemon } from '../interfaces/pokemon'
 import { usePagination } from '../hooks/pagination'
 import { useLoading } from '../hooks/loading'
 
+const EmptyComponent = ({ searchValue }: { searchValue: string }) => {
+  return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+      <PokemonLogo size={200} color='#444' />
+      <Text style={{ fontSize: 35, fontWeight: '600', textAlign: 'center', color: '#444' }}>
+        No pokemons found for "{searchValue}"
+      </Text>
+    </ScrollView>
+  )
+}
+
 export const Home = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([])
-  const { currentPage, stepToNextPage, maxReached, changeMaxReached } = usePagination()
+  const [searchValue, setSearchValue] = useState('')
+  const { currentPage, stepToNextPage, setCurrentPage, maxReached, changeMaxReached } = usePagination()
   const { isLoading, startLoading, stopLoading } = useLoading()
 
   const updatePokemons = async () => {
@@ -34,6 +46,25 @@ export const Home = () => {
     })().catch(console.log)
   }, [currentPage])
 
+  const searchForPokemon = async () => {
+    startLoading()
+    if (searchValue === '') {
+      if (maxReached) changeMaxReached()
+      setPokemons([])
+      setCurrentPage(0)
+      return
+    }
+
+    const result = await getPokemonData(searchValue)
+    if (!maxReached) changeMaxReached()
+    if (result === undefined) setPokemons([])
+    else {
+      setPokemons([result])
+    }
+
+    stopLoading()
+  }
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.header}>
@@ -54,25 +85,32 @@ export const Home = () => {
           </Text>
           <View style={styles.inputContainer}>
             <AntDesign name='search1' size={20} color={Colors.secondaryText} />
-            <TextInput
-              placeholder='Search'
-              placeholderTextColor={Colors.secondaryText}
-              style={{ fontSize: 18 }}
-            />
+            <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+              <TextInput
+                placeholder='Pokemon name'
+                placeholderTextColor={Colors.secondaryText}
+                style={{ fontSize: 18, flex: 1 }}
+                onChangeText={setSearchValue}
+              />
+              <TouchableOpacity style={{ paddingHorizontal: 10, paddingVertical: 3, backgroundColor: Colors.homeBackground, borderRadius: 20 }} onPress={searchForPokemon}>
+                <Text style={{ color: 'white' }}>Search</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <FlatList
-          data={pokemons}
-          renderItem={({ item }: { item: Pokemon }) => <PokemonCard pokemon={item} />}
-          columnWrapperStyle={{ gap: 10 }}
-          contentContainerStyle={{ gap: 30, overflow: 'visible', padding: 20 }}
-          keyExtractor={(item: Pokemon) => String(item.id)}
-          numColumns={3}
-          onEndReached={() => { stepToNextPage() }}
-          onEndReachedThreshold={0.1}
-        />
+      <View style={{ flex: 1, backgroundColor: 'white', overflow: 'hidden' }}>
+        {pokemons.length === 0 && !isLoading ? <EmptyComponent searchValue={searchValue} />
+          : <FlatList
+              data={pokemons}
+              renderItem={({ item }: { item: Pokemon }) => <PokemonCard pokemon={item} />}
+              columnWrapperStyle={{ gap: 10 }}
+              contentContainerStyle={{ gap: 30, padding: 20 }}
+              keyExtractor={(item: Pokemon) => String(item.id)}
+              numColumns={3}
+              onEndReached={() => { stepToNextPage() }}
+              onEndReachedThreshold={0.1}
+            />}
         {isLoading &&
           <View style={{ height: 40, justifyContent: 'center' }}>
             <ActivityIndicator size='large' />
@@ -122,5 +160,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+  },
+  searchButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    backgroundColor: Colors.homeBackground,
+    borderRadius: 20,
   },
 })
