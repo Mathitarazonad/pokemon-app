@@ -1,0 +1,37 @@
+[![Mango](https://mangoapp.com.py/)]
+# Mango Technical Mobile Application Project
+This is a technical test made with TypeScript for 10 Grounds.
+
+
+## The Project
+
+### In what consists?
+The project consists in the development of an mobile application that consumes data from an API of pokemons and prints the information in the app. The project should be developed using good practices and optimization techniques to ensure it's efficient and scalable.
+
+### Project requirements
+- The aplication must show a list of pokemons obtained from an API.
+
+- Each element of the list must show an image, the name, and a brief description of the pokemons.
+
+- When doing a click on an element of the list, it should display a screen with the details of the pokemons, with a synopsis, an image and other relevant information.
+
+- The aplication must have a search bar that allows users to search for pokemons by their names.
+
+- The application should be compatible in Android and IOS.
+
+
+## Technologies Used
+- Expo CLI
+- React Native
+- TypeScript
+- PokeApiV2
+- TS-Standard
+
+
+## Run the Test
+
+- Have installed **git** and **node** >= 18.17.0 in your machine. 
+- <code>git clone https://github.com/Mathitarazonad/pokemon-app</code>
+- <code>cd ./pokemon-app</code>
+- <code>npm install</code>
+- <code>npm run android</code>
