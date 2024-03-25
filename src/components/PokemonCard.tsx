@@ -3,12 +3,17 @@ import { Pokemon } from '../interfaces/pokemon'
 import { capitalize } from '../utils/texts'
 import { Colors, TypeColors } from '../constants/colors'
 import { memo } from 'react'
+import { useNavigator } from '../hooks/navigator'
 
 export const Component = ({ pokemon }: { pokemon: Pokemon }) => {
   const mainPokemonType = pokemon.types[0].type.name
+  const { navigateTo } = useNavigator()
 
   return (
-    <TouchableOpacity style={styles.cardContainer}>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      onPress={() => { navigateTo('PokemonDetails', { pokemon }) }}
+    >
       <View style={[{ backgroundColor: TypeColors[mainPokemonType] }, styles.typeTag]}>
         <Text style={{ color: 'white', fontWeight: '600' }}>{capitalize(mainPokemonType)}</Text>
       </View>

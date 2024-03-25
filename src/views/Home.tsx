@@ -9,12 +9,12 @@ import { Pokemon } from '../interfaces/pokemon'
 import { usePagination } from '../hooks/pagination'
 import { useLoading } from '../hooks/loading'
 
-const EmptyComponent = ({ searchValue }: { searchValue: string }) => {
+const EmptyComponent = () => {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
       <PokemonLogo size={200} color='#444' />
       <Text style={{ fontSize: 35, fontWeight: '600', textAlign: 'center', color: '#444' }}>
-        No pokemons found for "{searchValue}"
+        No pokemons found
       </Text>
     </ScrollView>
   )
@@ -100,7 +100,7 @@ export const Home = () => {
         </View>
       </View>
       <View style={{ flex: 1, backgroundColor: 'white', overflow: 'hidden' }}>
-        {pokemons.length === 0 && !isLoading ? <EmptyComponent searchValue={searchValue} />
+        {pokemons.length === 0 && !isLoading ? <EmptyComponent />
           : <FlatList
               data={pokemons}
               renderItem={({ item }: { item: Pokemon }) => <PokemonCard pokemon={item} />}
