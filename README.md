@@ -29,8 +29,8 @@ The project consists in the development of an mobile application that consumes d
 
 ## Run the Test
 
-- Have installed **git** and **node** >= 18.17.0 in your machine and **androidStudio** in case you want to use it in Android OS. 
+- Have installed **git** and **node** >= 18.17.0 in your machine and **androidStudio** in case you want to use it in Android OS, or scan the QR code with the expo application in your mobile (IOS or Android) after executing the last command. 
 - <code>git clone https://github.com/Mathitarazonad/pokemon-app</code>
 - <code>cd ./pokemon-app</code>
 - <code>npm install</code>
-- <code>npm run android</code>
+- <code>npm run start</code>
