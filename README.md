@@ -1,7 +1,6 @@
 [![Mango](https://media.licdn.com/dms/image/D4D0BAQFQq855hprnYA/company-logo_200_200/0/1704295023542/mango_py_logo?e=2147483647&v=beta&t=yZKVF1QxoGhSDnAVTbLihAFxM6xvkrvB_1IgATujZx8)](https://mangoapp.com.py/)
 # Mango Technical Mobile Application Project
-This is a technical test made with TypeScript for 10 Grounds.
-
+This is a small technical project made for Mango with React Native and TypeScript.
 
 ## The Project
 
