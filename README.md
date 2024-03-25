@@ -1,4 +1,4 @@
-[![Mango](https://mangoapp.com.py/)]
+[![Mango](https://media.licdn.com/dms/image/D4D0BAQFQq855hprnYA/company-logo_200_200/0/1704295023542/mango_py_logo?e=2147483647&v=beta&t=yZKVF1QxoGhSDnAVTbLihAFxM6xvkrvB_1IgATujZx8)](https://mangoapp.com.py/)
 # Mango Technical Mobile Application Project
 This is a technical test made with TypeScript for 10 Grounds.
 
@@ -30,7 +30,7 @@ The project consists in the development of an mobile application that consumes d
 
 ## Run the Test
 
-- Have installed **git** and **node** >= 18.17.0 in your machine. 
+- Have installed **git** and **node** >= 18.17.0 in your machine and **androidStudio** in case you want to use it in Android OS. 
 - <code>git clone https://github.com/Mathitarazonad/pokemon-app</code>
 - <code>cd ./pokemon-app</code>
 - <code>npm install</code>
