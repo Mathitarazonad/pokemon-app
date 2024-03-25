@@ -1,4 +1,6 @@
 import { Pokemon, StarterPokemon } from '../interfaces/pokemon'
+import { PokemonDetailedData } from '../interfaces/pokemonDetailed'
+import { PokemonTypeDetails } from '../interfaces/pokemonTypesDetails'
 
 const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2'
 
@@ -26,10 +28,35 @@ export const getPokemons = async ({ page, limit }: { page: number, limit?: numbe
 export const getPokemonData = async (name: string) => {
   try {
     const data: Pokemon = await fetch(POKEAPI_BASE_URL + '/pokemon/' + name)
+      .catch(err => { throw err })
       .then(async response => await response.json())
 
     return data
   } catch (error) {
-    console.log(error?.message)
+    return undefined
+  }
+}
+
+export const getPokemonDetailedData = async (nameOrId: string | number) => {
+  try {
+    let data = await fetch(POKEAPI_BASE_URL + '/pokemon-species/' + nameOrId)
+      .then(async response => await response.json()) as PokemonDetailedData
+
+    data = { ...data, flavor_text_entries: data.flavor_text_entries.filter((_, i) => i === 0) }
+
+    return data
+  } catch (error) {
+    return null
+  }
+}
+
+export const getTypeData = async (typeOrId: PokemonType | number) => {
+  try {
+    const data = await fetch(POKEAPI_BASE_URL + '/type/' + typeOrId)
+      .then(async response => await response.json())
+
+    return data as PokemonTypeDetails
+  } catch (error) {
+    console.log(error?.response)
   }
 }
